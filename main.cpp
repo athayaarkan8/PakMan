@@ -1,11 +1,34 @@
 #include <iostream>
 #include <limits>
-
+#include "ghost.cpp"
+#include "bfs.cpp"
 using namespace std;
+
 
 bool gameRunning = false;
 int score = 0;
 int lamaBermain = 0;
+int maze[SIZE][SIZE] = {
+
+        {0,0,0,1,0},
+        {1,0,0,1,0},
+        {0,0,0,0,0},
+        {0,1,1,0,1},
+        {0,0,0,0,0}
+    };
+
+    Ghost ghost(0,0);
+
+    int playerX = 2;
+    int playerY = 2;
+
+    ghost.setDifficulty(2);
+
+    ghost.update(
+        maze,
+        playerX,
+        playerY
+    );
 
 enum GameState
 {
@@ -243,7 +266,7 @@ void inputPlayer()
 void updateGame()
 {
     cout << "Game sedang berjalan..." << endl;
-}
+}    
 
 int main()
 {
