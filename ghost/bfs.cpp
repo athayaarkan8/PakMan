@@ -1,34 +1,37 @@
 #include <iostream>
+#include "bfs.h"
 using namespace std;
 
-
-struct Node {
+struct Node
+{
     int x;
     int y;
 };
 
-class Queue {
+class Queue
+{
 
 private:
-
     Node data[100];
     int front;
     int rear;
 
 public:
-
-    Queue() {
+    Queue()
+    {
         front = 0;
         rear = 0;
     }
 
-    void enqueue(Node n) {
+    void enqueue(Node n)
+    {
 
         data[rear] = n;
         rear++;
     }
 
-    Node dequeue() {
+    Node dequeue()
+    {
 
         Node temp = data[front];
         front++;
@@ -36,7 +39,8 @@ public:
         return temp;
     }
 
-    bool isEmpty() {
+    bool isEmpty()
+    {
 
         return front == rear;
     }
@@ -47,11 +51,14 @@ bool visited[SIZE][SIZE];
 int dx[4] = {-1, 1, 0, 0};
 int dy[4] = {0, 0, -1, 1};
 
-void resetVisited() {
+void resetVisited()
+{
 
-    for(int i = 0; i < SIZE; i++) {
+    for (int i = 0; i < SIZE; i++)
+    {
 
-        for(int j = 0; j < SIZE; j++) {
+        for (int j = 0; j < SIZE; j++)
+        {
 
             visited[i][j] = false;
         }
