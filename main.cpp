@@ -3,6 +3,7 @@ using namespace std;
 
 #include "ghost.cpp"
 #include "bfs.cpp"
+#include "graph.cpp"
 
 int main() {
 
@@ -15,6 +16,8 @@ int main() {
         {0,0,0,0,0}
     };
 
+    renderMaze(maze);
+    
     Ghost ghost(0,0);
 
     int playerX = 2;
