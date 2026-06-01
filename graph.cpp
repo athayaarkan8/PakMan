@@ -76,3 +76,51 @@ void printGraphNodes(
         }
     }
 }
+
+void printConnections(
+    int maze[5][5]
+) {
+
+    cout << "\n=== NODE CONNECTIONS ===\n";
+
+    int dx[4] = {-1, 1, 0, 0};
+    int dy[4] = {0, 0, -1, 1};
+
+    for(int i = 0; i < 5; i++) {
+
+        for(int j = 0; j < 5; j++) {
+
+            if(maze[i][j] == 0) {
+
+                cout
+                << "("
+                << i
+                << ","
+                << j
+                << ") -> ";
+
+                for(int k = 0; k < 4; k++) {
+
+                    int nx = i + dx[k];
+                    int ny = j + dy[k];
+
+                    if(nx >= 0 &&
+                       ny >= 0 &&
+                       nx < 5 &&
+                       ny < 5 &&
+                       maze[nx][ny] == 0) {
+
+                        cout
+                        << "("
+                        << nx
+                        << ","
+                        << ny
+                        << ") ";
+                    }
+                }
+
+                cout << endl;
+            }
+        }
+    }
+}

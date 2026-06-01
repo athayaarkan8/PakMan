@@ -20,6 +20,8 @@ int main() {
 
     printGraphNodes(maze);
 
+    printConnections(maze);
+
     cout << "\n=== MOVEMENT TEST ===\n";
 
     if(isValidMove(maze,2,2))
