@@ -46,3 +46,33 @@ bool checkWallCollision(
         y
     );
 }
+
+struct GraphNode {
+
+    int x;
+    int y;
+};
+
+void printGraphNodes(
+    int maze[5][5]
+) {
+
+    cout << "\n=== NODE LIST ===\n";
+
+    for(int i = 0; i < 5; i++) {
+
+        for(int j = 0; j < 5; j++) {
+
+            if(maze[i][j] == 0) {
+
+                cout
+                << "("
+                << i
+                << ","
+                << j
+                << ")"
+                << endl;
+            }
+        }
+    }
+}

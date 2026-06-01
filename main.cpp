@@ -18,6 +18,8 @@ int main() {
 
     renderMaze(maze);
 
+    printGraphNodes(maze);
+
     cout << "\n=== MOVEMENT TEST ===\n";
 
     if(isValidMove(maze,2,2))
