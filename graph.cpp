@@ -18,3 +18,31 @@ void renderMaze(int maze[5][5]) {
         cout << endl;
     }
 }
+
+bool isValidMove(
+    int maze[5][5],
+    int x,
+    int y
+) {
+
+    if(x < 0 || y < 0 ||
+       x >= 5 || y >= 5) {
+
+        return false;
+    }
+
+    return maze[x][y] == 0;
+}
+
+bool checkWallCollision(
+    int maze[5][5],
+    int x,
+    int y
+) {
+
+    return !isValidMove(
+        maze,
+        x,
+        y
+    );
+}

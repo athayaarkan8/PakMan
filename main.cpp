@@ -17,6 +17,14 @@ int main() {
     };
 
     renderMaze(maze);
+
+    cout << "\n=== MOVEMENT TEST ===\n";
+
+    if(isValidMove(maze,2,2))
+        cout << "Move Valid" << endl;
+
+    if(checkWallCollision(maze,0,3))
+        cout << "Wall Collision" << endl;
     
     Ghost ghost(0,0);
 
