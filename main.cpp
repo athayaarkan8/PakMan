@@ -3,6 +3,7 @@ using namespace std;
 
 #include "ghost.cpp"
 #include "bfs.cpp"
+#include "graph.cpp"
 
 int main() {
 
@@ -15,6 +16,20 @@ int main() {
         {0,0,0,0,0}
     };
 
+    renderMaze(maze);
+
+    printGraphNodes(maze);
+
+    printConnections(maze);
+
+    cout << "\n=== MOVEMENT TEST ===\n";
+
+    if(isValidMove(maze,2,2))
+        cout << "Move Valid" << endl;
+
+    if(checkWallCollision(maze,0,3))
+        cout << "Wall Collision" << endl;
+    
     Ghost ghost(0,0);
 
     int playerX = 2;
