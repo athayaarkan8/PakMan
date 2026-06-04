@@ -14,20 +14,7 @@ GameData::GameData()
       gameRunning(false),
       state(MENU)
 {
-    int defaultMaze[SIZE][SIZE] = {
-        {0, 0, 0, 1, 0},
-        {1, 0, 0, 1, 0},
-        {0, 0, 0, 0, 0},
-        {0, 1, 1, 0, 1},
-        {0, 0, 0, 0, 0}};
-
-    for (int i = 0; i < SIZE; i++)
-    {
-        for (int j = 0; j < SIZE; j++)
-        {
-            maze[i][j] = defaultMaze[i][j];
-        }
-    }
+    initializeMaze(maze);
 }
 
 void initializeGame(GameData &game)
@@ -42,37 +29,17 @@ void renderGame(const GameData &game)
     cout << "\nRewind Energy: " << game.player.getEnergy();
     cout << " | Paket: " << (game.hasPackage ? "Sudah diambil" : "Belum") << "\n\n";
 
-    for (int i = 0; i < SIZE; i++)
-    {
-        for (int j = 0; j < SIZE; j++)
-        {
-            char cell = (game.maze[i][j] == 1) ? '#' : '.';
-
-            if (!game.hasPackage && i == game.packageX && j == game.packageY)
-            {
-                cell = '$';
-            }
-
-            if (i == game.deliveryX && j == game.deliveryY)
-            {
-                cell = '!';
-            }
-
-            if (i == game.ghost.x && j == game.ghost.y)
-            {
-                cell = '>';
-            }
-
-            if (i == game.player.getX() && j == game.player.getY())
-            {
-                cell = 'C';
-            }
-
-            cout << cell << ' ';
-        }
-
-        cout << '\n';
-    }
+    renderMaze(
+        game.maze,
+        game.player.getX(),
+        game.player.getY(),
+        game.ghost.x,
+        game.ghost.y,
+        game.packageX,
+        game.packageY,
+        game.deliveryX,
+        game.deliveryY,
+        game.hasPackage);
 
     if (game.state == PAUSED)
     {

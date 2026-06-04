@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(pakman
     main.cpp
     game/stack.cpp
-    game/rewind.cpp
+    game/gameLogic.cpp
     player/player.cpp
     ghost/ghost.cpp
     ghost/bfs.cpp
