@@ -7,7 +7,6 @@
 using namespace std;
 
 
-
 int maze[SIZE][SIZE] = {
 
     {0, 0, 0, 1, 0},
