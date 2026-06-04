@@ -1,7 +1,7 @@
 #ifndef BFS_H
 #define BFS_H
 
-const int SIZE = 5;
+#include "../common.h"
 
 bool bfs(
     int maze[SIZE][SIZE],

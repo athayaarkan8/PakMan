@@ -27,6 +27,9 @@ public:
     );
 
     void setDifficulty(int level);
+
+private:
+    int patrolIndex;
 };
 
 #endif

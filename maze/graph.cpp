@@ -1,13 +1,15 @@
 #include <iostream>
+#include "graph.h"
+
 using namespace std;
 
-void renderMaze(int maze[5][5]) {
+void renderMaze(int maze[SIZE][SIZE]) {
 
     cout << "\n=== MAZE ===\n";
 
-    for(int i = 0; i < 5; i++) {
+    for(int i = 0; i < SIZE; i++) {
 
-        for(int j = 0; j < 5; j++) {
+        for(int j = 0; j < SIZE; j++) {
 
             if(maze[i][j] == 1)
                 cout << "# ";
@@ -20,13 +22,13 @@ void renderMaze(int maze[5][5]) {
 }
 
 bool isValidMove(
-    int maze[5][5],
+    int maze[SIZE][SIZE],
     int x,
     int y
 ) {
 
     if(x < 0 || y < 0 ||
-       x >= 5 || y >= 5) {
+       x >= SIZE || y >= SIZE) {
 
         return false;
     }
@@ -35,7 +37,7 @@ bool isValidMove(
 }
 
 bool checkWallCollision(
-    int maze[5][5],
+    int maze[SIZE][SIZE],
     int x,
     int y
 ) {
@@ -54,14 +56,14 @@ struct GraphNode {
 };
 
 void printGraphNodes(
-    int maze[5][5]
+    int maze[SIZE][SIZE]
 ) {
 
     cout << "\n=== NODE LIST ===\n";
 
-    for(int i = 0; i < 5; i++) {
+    for(int i = 0; i < SIZE; i++) {
 
-        for(int j = 0; j < 5; j++) {
+        for(int j = 0; j < SIZE; j++) {
 
             if(maze[i][j] == 0) {
 
@@ -78,7 +80,7 @@ void printGraphNodes(
 }
 
 void printConnections(
-    int maze[5][5]
+    int maze[SIZE][SIZE]
 ) {
 
     cout << "\n=== NODE CONNECTIONS ===\n";
@@ -86,9 +88,9 @@ void printConnections(
     int dx[4] = {-1, 1, 0, 0};
     int dy[4] = {0, 0, -1, 1};
 
-    for(int i = 0; i < 5; i++) {
+    for(int i = 0; i < SIZE; i++) {
 
-        for(int j = 0; j < 5; j++) {
+        for(int j = 0; j < SIZE; j++) {
 
             if(maze[i][j] == 0) {
 
@@ -106,8 +108,8 @@ void printConnections(
 
                     if(nx >= 0 &&
                        ny >= 0 &&
-                       nx < 5 &&
-                       ny < 5 &&
+                       nx < SIZE &&
+                       ny < SIZE &&
                        maze[nx][ny] == 0) {
 
                         cout
