@@ -1,30 +1,82 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 #include "graph.h"
+#include "mazeData.h"
+#include "../ghost/bfs.h"
 
 using namespace std;
 
-void initializeMaze(int maze[SIZE][SIZE])
+void generateRandomWalls(int maze[SIZE][SIZE], int wallCount)
 {
-    int defaultMaze[SIZE][SIZE] =
+    // Kosongkan area dalam
+    for (int i = 1; i < SIZE - 1; i++)
     {
-        {0,0,0,1,0},
-        {1,0,0,1,0},
-        {0,0,0,0,0},
-        {0,1,1,0,1},
-        {0,0,0,0,0}
-    };
+        for (int j = 1; j < SIZE - 1; j++)
+        {
+            maze[i][j] = 0;
+        }
+    }
+
+    for (int k = 0; k < wallCount; k++)
+    {
+        int x = rand() % (SIZE - 3) + 1;
+        int y = rand() % (SIZE - 3) + 1;
+
+        int panjang = rand() % 4 + 1;
+
+        for (int p = 0; p < panjang; p++)
+        {
+            if (y + p < SIZE - 1)
+            {
+                maze[x][y + p] = 1;
+            }
+        }
+    }
+}
+
+void initializeMaze(
+    int maze[SIZE][SIZE],
+    int difficulty
+)
+{
+    static bool seeded = false;
+
+    if(!seeded)
+    {
+        srand(time(NULL));
+        seeded = true;
+    }
+
+    int selected = rand() % 3;
+
+    const int (*source)[SIZE];
+
+    if(difficulty == 1)
+    {
+        source = EASY_MAZES[selected];
+    }
+    else if(difficulty == 2)
+    {
+        source = MEDIUM_MAZES[selected];
+    }
+    else
+    {
+        source = HARD_MAZES[selected];
+    }
 
     for(int i = 0; i < SIZE; i++)
     {
         for(int j = 0; j < SIZE; j++)
         {
-            maze[i][j] = defaultMaze[i][j];
+            maze[i][j] = source[i][j];
         }
     }
 }
 
 void renderMaze(
     const int maze[SIZE][SIZE],
+    int difficulty,
     int playerX,
     int playerY,
     int ghostX,
@@ -33,36 +85,35 @@ void renderMaze(
     int packageY,
     int deliveryX,
     int deliveryY,
-    bool hasPackage
-)
+    bool hasPackage)
 {
-    for(int i = 0; i < SIZE; i++)
+    for (int i = 0; i < SIZE; i++)
     {
-        for(int j = 0; j < SIZE; j++)
+        for (int j = 0; j < SIZE; j++)
         {
             char cell = (maze[i][j] == 1) ? '#' : '.';
 
-            if(!hasPackage &&
-               i == packageX &&
-               j == packageY)
+            if (!hasPackage &&
+                i == packageX &&
+                j == packageY)
             {
                 cell = '$';
             }
 
-            if(i == deliveryX &&
-               j == deliveryY)
+            if (i == deliveryX &&
+                j == deliveryY)
             {
                 cell = '!';
             }
 
-            if(i == ghostX &&
-               j == ghostY)
+            if (i == ghostX &&
+                j == ghostY)
             {
                 cell = '>';
             }
 
-            if(i == playerX &&
-               j == playerY)
+            if (i == playerX &&
+                j == playerY)
             {
                 cell = 'C';
             }
@@ -73,109 +124,3 @@ void renderMaze(
         cout << endl;
     }
 }
-
-// bool isValidMove(
-//     int maze[SIZE][SIZE],
-//     int x,
-//     int y
-// ) {
-
-//     if(x < 0 || y < 0 ||
-//        x >= SIZE || y >= SIZE) {
-
-//         return false;
-//     }
-
-//     return maze[x][y] == 0;
-// }
-
-// bool checkWallCollision(
-//     int maze[SIZE][SIZE],
-//     int x,
-//     int y
-// ) {
-
-//     return !isValidMove(
-//         maze,
-//         x,
-//         y
-//     );
-// }
-
-// struct GraphNode {
-
-//     int x;
-//     int y;
-// };
-
-// void printGraphNodes(
-//     int maze[SIZE][SIZE]
-// ) {
-
-//     cout << "\n=== NODE LIST ===\n";
-
-//     for(int i = 0; i < SIZE; i++) {
-
-//         for(int j = 0; j < SIZE; j++) {
-
-//             if(maze[i][j] == 0) {
-
-//                 cout
-//                 << "("
-//                 << i
-//                 << ","
-//                 << j
-//                 << ")"
-//                 << endl;
-//             }
-//         }
-//     }
-// }
-
-// void printConnections(
-//     int maze[SIZE][SIZE]
-// ) {
-
-//     cout << "\n=== NODE CONNECTIONS ===\n";
-
-//     int dx[4] = {-1, 1, 0, 0};
-//     int dy[4] = {0, 0, -1, 1};
-
-//     for(int i = 0; i < SIZE; i++) {
-
-//         for(int j = 0; j < SIZE; j++) {
-
-//             if(maze[i][j] == 0) {
-
-//                 cout
-//                 << "("
-//                 << i
-//                 << ","
-//                 << j
-//                 << ") -> ";
-
-//                 for(int k = 0; k < 4; k++) {
-
-//                     int nx = i + dx[k];
-//                     int ny = j + dy[k];
-
-//                     if(nx >= 0 &&
-//                        ny >= 0 &&
-//                        nx < SIZE &&
-//                        ny < SIZE &&
-//                        maze[nx][ny] == 0) {
-
-//                         cout
-//                         << "("
-//                         << nx
-//                         << ","
-//                         << ny
-//                         << ") ";
-//                     }
-//                 }
-
-//                 cout << endl;
-//             }
-//         }
-//     }
-// }

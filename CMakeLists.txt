@@ -13,4 +13,5 @@ add_executable(pakman
     ghost/ghost.cpp
     ghost/bfs.cpp
     maze/graph.cpp
+    maze/mazeData.cpp
 )

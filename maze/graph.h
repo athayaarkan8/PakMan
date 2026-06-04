@@ -2,22 +2,23 @@
 #define GRAPH_H
 #include "../common.h"
 
-void initializeMaze(int maze[SIZE][SIZE]);
+void initializeMaze(int maze[SIZE][SIZE], int difficulty);
 
-bool isValidMove(
-    int maze[SIZE][SIZE],
-    int x,
-    int y
-);
+// bool isValidMove(
+//     int maze[SIZE][SIZE],
+//     int x,
+//     int y
+// );
 
-bool checkWallCollision(
-    int maze[SIZE][SIZE],
-    int x,
-    int y
-);
+// bool checkWallCollision(
+//     int maze[SIZE][SIZE],
+//     int x,
+//     int y
+// );
 
 void renderMaze(
     const int maze[SIZE][SIZE],
+    int difficulty,
     int playerX,
     int playerY,
     int ghostX,

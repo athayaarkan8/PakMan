@@ -20,6 +20,7 @@ enum GameState
 struct GameData
 {
     int maze[SIZE][SIZE];
+    int difficulty;
     Player player;
     Ghost ghost;
     int packageX;
@@ -33,7 +34,7 @@ struct GameData
     GameData();
 };
 
-void initializeGame(GameData &game);
+void initializeGame(GameData &game, int difficulty);
 void renderGame(const GameData &game);
 void handlePlayerInput(GameData &game, char input);
 void updateGameState(GameData &game);

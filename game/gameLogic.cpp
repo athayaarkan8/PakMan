@@ -4,33 +4,43 @@
 using namespace std;
 
 GameData::GameData()
-    : player(2, 2),
-      ghost(0, 0),
-      packageX(4),
-      packageY(0),
-      deliveryX(0),
-      deliveryY(4),
+    : player(1, 1),
+      ghost(SIZE - 2, SIZE - 2),
+      packageX(SIZE - 2),
+      packageY(1),
+      deliveryX(1),
+      deliveryY(SIZE - 2),
       hasPackage(false),
       gameRunning(false),
       state(MENU)
 {
-    initializeMaze(maze);
+    initializeMaze(maze, difficulty);
 }
 
-void initializeGame(GameData &game)
+void initializeGame(GameData &game, int difficulty)
 {
     game = GameData();
+
+    game.difficulty = difficulty;
+
+    initializeMaze(
+        game.maze,
+        difficulty
+    );
+
     game.state = PLAYING;
     game.gameRunning = true;
 }
 
 void renderGame(const GameData &game)
 {
+    system("cls"); 
     cout << "\nRewind Energy: " << game.player.getEnergy();
     cout << " | Paket: " << (game.hasPackage ? "Sudah diambil" : "Belum") << "\n\n";
 
     renderMaze(
         game.maze,
+        game.difficulty,
         game.player.getX(),
         game.player.getY(),
         game.ghost.x,
