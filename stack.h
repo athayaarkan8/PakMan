@@ -10,7 +10,7 @@ struct Position
 class Stack
 {
 private:
-    Position data[100];
+    Position data[5];
     int top;
 
 public:
