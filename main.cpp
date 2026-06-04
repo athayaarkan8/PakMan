@@ -1,10 +1,13 @@
 #include <iostream>
 #include <limits>
-#include "ghost/ghost.h"
-#include "ghost/bfs.h"
-#include "ghost/ghost.cpp"
-#include "ghost/bfs.cpp"
+// #include "ghost/ghost.h"
+// #include "ghost/bfs.h"
+// #include "ghost/ghost.cpp"
+// #include "ghost/bfs.cpp"
+#include "game.h"
 using namespace std;
+
+GameData gameData;
 
 bool gameRunning = false;
 int lamaBermain = 0;
@@ -199,23 +202,24 @@ void updateGame()
 
 int main()
 {
-    while (true)
-    {
-        mainMenu();
-
-        while (gameRunning)
-        {
-            system("cls");
-
-            renderGame();
-
-            updateGame();
-
-            system("pause");
-
-            gameRunning = false;
+     gameData.isRunning = false;
+    gameData.timeRemaining = 60;
+    
+    // Initialize maze
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            gameData.maze[i][j] = 0;
         }
     }
-
+    
+    // Jalankan game loop
+    while (true) {
+        mainMenu();
+        
+        if (gameData.isRunning) {
+            gameLoop();
+        }
+    }
+    
     return 0;
 }
