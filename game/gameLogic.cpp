@@ -25,8 +25,7 @@ void initializeGame(GameData &game, int difficulty)
 
     initializeMaze(
         game.maze,
-        difficulty
-    );
+        difficulty);
 
     game.state = PLAYING;
     game.gameRunning = true;
@@ -34,8 +33,12 @@ void initializeGame(GameData &game, int difficulty)
 
 void renderGame(const GameData &game)
 {
-    system("cls"); 
+    system("cls");
     cout << "\nRewind Energy: " << game.player.getEnergy();
+    cout
+        << " | Recharge: "
+        << game.player.getStepCounter()
+        << "/10";
     cout << " | Paket: " << (game.hasPackage ? "Sudah diambil" : "Belum") << "\n\n";
 
     renderMaze(
@@ -108,4 +111,6 @@ void updateGameState(GameData &game)
     {
         game.state = WIN;
     }
+    game.player.resetRewindFlag();
+
 }
