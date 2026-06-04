@@ -1,38 +1,9 @@
+#include <cctype>
 #include <iostream>
 #include <limits>
-// #include "ghost/ghost.h"
-// #include "ghost/bfs.h"
-// #include "ghost/ghost.cpp"
-// #include "ghost/bfs.cpp"
 #include "game.h"
+
 using namespace std;
-
-GameData gameData;
-
-bool gameRunning = false;
-int lamaBermain = 0;
-
-
-int maze[SIZE][SIZE] = {
-
-    {0, 0, 0, 1, 0},
-    {1, 0, 0, 1, 0},
-    {0, 0, 0, 0, 0},
-    {0, 1, 1, 0, 1},
-    {0, 0, 0, 0, 0}};
-
-Ghost ghost(0, 0);
-
-int playerX = 2;
-int playerY = 2;
-
-enum GameState
-{
-    MENU,
-    PLAYING,
-    GAME_OVER,
-    WIN
-};
 
 void clearInput()
 {
@@ -42,184 +13,125 @@ void clearInput()
 
 void caraBermain()
 {
-    system("cls");
-    cout << endl;
-    cout << "======================================" << endl;
-    cout << " CARA BERMAIN " << endl;
-    cout << "======================================" << endl;
-    cout << endl;
-    cout << "Tujuan Game :" << endl;
-    cout << "Antarkan seluruh paket ke titik tujuan" << endl;
-    cout << "sebelum waktu habis." << endl;
-    cout << endl;
-    cout << "Hindari Penganggu!" << endl;
-    cout << "Jika tertangkap Antek-Antek maka permainan selesai." << endl;
-    cout << endl;
-    cout << "============== KONTROL ===============" << endl;
-    cout << "W : Gerak Ke Atas" << endl;
-    cout << "A : Gerak Ke Kiri" << endl;
-    cout << "S : Gerak Ke Bawah" << endl;
-    cout << "D : Gerak Ke Kanan" << endl;
-    cout << "Z : Gunakan Time Rewind" << endl;
-    cout << "Q : Jeda Game" << endl;
-    cout << endl;
-    cout << "======== KEKUATAN TIME REWIND ========" << endl;
-    cout << "Time Rewind digunakan untuk kembali" << endl;
-    cout << "ke posisi sebelumnya." << endl;
-    cout << "Gunakan dengan bijak karena energi rewind" << endl;
-    cout << "terbatas." << endl;
-    cout << endl;
-    cout << "============= ARTI SIMBOL ============" << endl;
-    cout << "C : Pemain" << endl;
-    cout << "> : Antek-Antek" << endl;
-    cout << "$ : Paket" << endl;
-    cout << "! : Titik Delivery" << endl;
-    cout << "# : Tembok" << endl;
-    cout << ". : Jalan" << endl;
-    cout << endl;
+    cout << "\n======================================\n";
+    cout << " CARA BERMAIN\n";
+    cout << "======================================\n\n";
+    cout << "W/A/S/D : Gerak\n";
+    cout << "Z       : Rewind posisi sebelumnya\n";
+    cout << "Q       : Pause / Resume\n\n";
+    cout << "Ambil paket ($), lalu antarkan ke titik (!).\n";
+    cout << "Hindari ghost (>).\n\n";
     cout << "Tekan Enter untuk kembali ke menu...";
-    cin.ignore();
+    clearInput();
     cin.get();
 }
 
-void chooseGameTime()
+void playGame()
 {
-    int aksi;
+    GameData game;
+    initializeGame(game);
+    game.gameRunning = true;
+    game.state = PLAYING;
 
+    while (game.gameRunning)
+    {
+        renderGame(game);
+
+        cout << "Input (W/A/S/D, Z rewind, Q pause): ";
+        char input;
+        cin >> input;
+
+        if (cin.fail())
+        {
+            if (cin.eof())
+            {
+                game.gameRunning = false;
+                break;
+            }
+            clearInput();
+            continue;
+        }
+
+        input = static_cast<char>(tolower(static_cast<unsigned char>(input)));
+
+        if (input == 'q')
+        {
+            game.state = (game.state == PAUSED) ? PLAYING : PAUSED;
+
+            if (game.state == PAUSED)
+            {
+                cout << "Game dijeda. Tekan Q lagi untuk lanjut.\n";
+            }
+
+            continue;
+        }
+
+        if (game.state == PAUSED)
+        {
+            continue;
+        }
+
+        handlePlayerInput(game, input);
+        updateGameState(game);
+
+        if (game.state == WIN)
+        {
+            renderGame(game);
+            cout << "\nKamu menang! Paket berhasil diantar.\n";
+            game.gameRunning = false;
+        }
+        else if (game.state == GAME_OVER)
+        {
+            renderGame(game);
+            cout << "\nGame Over! Kamu tertangkap ghost.\n";
+            game.gameRunning = false;
+        }
+    }
+
+    cout << "Tekan Enter untuk kembali ke menu...";
+    clearInput();
+    cin.get();
+}
+
+int main()
+{
     while (true)
     {
-        system("cls");
+        cout << "\n======================================\n";
+        cout << "            PAKMAN GAMEBOY\n";
+        cout << "======================================\n";
+        cout << "[1] Mulai Game\n";
+        cout << "[2] Cara Bermain\n";
+        cout << "[3] Exit\n";
+        cout << "Masukan Aksi: ";
 
-        cout << "============ DURASI GAME ============" << endl;
-        cout << "1. Regular (1 Menit)" << endl;
-        cout << "2. Mid (2 Menit)" << endl;
-        cout << "3. Long (3 Menit)" << endl;
-        cout << "4. Kembali ke Menu" << endl;
-        cout << endl;
-        cout << "Pilih Waktu Main: ";
-
+        int aksi;
         cin >> aksi;
 
         if (cin.fail())
         {
+            if (cin.eof())
+            {
+                return 0;
+            }
             clearInput();
-
-            cout << "\nInput harus angka!" << endl;
-            system("pause");
+            cout << "Input harus angka!\n";
             continue;
         }
 
         switch (aksi)
         {
         case 1:
-            lamaBermain = 60;
-            return;
-
-        case 2:
-            lamaBermain = 120;
-            return;
-
-        case 3:
-            lamaBermain = 180;
-            return;
-
-        case 4:
-            return;
-
-        default:
-            cout << "\nPilihan tidak valid!" << endl;
-            system("pause");
-        }
-    }
-}
-
-void mainMenu()
-{
-    int aksi;
-
-    while (true)
-    {
-        system("cls");
-
-        cout << "======================================" << endl;
-        cout << "            PAKMAN GAMEBOY            " << endl;
-        cout << "======================================" << endl;
-        cout << endl;
-
-        cout << "[1] Mulai Game" << endl;
-        cout << "[2] Cara Bermain" << endl;
-        cout << "[3] Exit" << endl;
-        cout << endl;
-
-        cout << "Masukan Aksi: ";
-
-        cin >> aksi;
-
-        switch (aksi)
-        {
-        case 1:
-            chooseGameTime();
-
-            if (lamaBermain > 0)
-            {
-                gameRunning = true;
-                return;
-            }
+            playGame();
             break;
-
         case 2:
             caraBermain();
-
+            break;
         case 3:
-            exit(0);
-
+            return 0;
         default:
-            cout << "Pilihan tidak valid!" << endl;
-            system("pause");
+            cout << "Pilihan tidak valid!\n";
+            break;
         }
     }
-}
-
-void renderGame()
-{
-    cout << "████████████████" << endl;
-    cout << "█ C · · X · · !█" << endl;
-    cout << "█ . . . . # . .█" << endl;
-    cout << "█ . # # . . . #█" << endl;
-    cout << "████████████████" << endl;
-    cout << endl;
-}
-
-void updateGame()
-{
-    ghost.setDifficulty(2);
-
-    ghost.update(
-        maze,
-        playerX,
-        playerY);
-}
-
-int main()
-{
-     gameData.isRunning = false;
-    gameData.timeRemaining = 60;
-    
-    // Initialize maze
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            gameData.maze[i][j] = 0;
-        }
-    }
-    
-    // Jalankan game loop
-    while (true) {
-        mainMenu();
-        
-        if (gameData.isRunning) {
-            gameLoop();
-        }
-    }
-    
-    return 0;
 }

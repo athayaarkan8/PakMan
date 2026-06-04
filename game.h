@@ -1,24 +1,43 @@
 #ifndef GAME_H
 #define GAME_H
 
-// Define ukuran maze
-#define SIZE 5
-
-// Include semua header modul
-#include "player/player.h"
-#include "ghost/ghost.h"
-#include "ghost/bfs.h"
+#include "common.h"
 #include "game/stack.h"
+#include "ghost/bfs.h"
+#include "ghost/ghost.h"
 #include "maze/graph.h"
+#include "player/player.h"
 
-// Struktur game global
-struct GameData {
+enum GameState
+{
+    MENU,
+    PLAYING,
+    PAUSED,
+    GAME_OVER,
+    WIN
+};
+
+struct GameData
+{
     int maze[SIZE][SIZE];
     Player player;
     Ghost ghost;
-    Stack<Position> rewindStack;
-    bool isRunning;
-    int timeRemaining;
+    int packageX;
+    int packageY;
+    int deliveryX;
+    int deliveryY;
+    bool hasPackage;
+    bool gameRunning;
+    GameState state;
+
+    GameData();
 };
+
+void initializeGame(GameData &game);
+void renderGame(const GameData &game);
+void handlePlayerInput(GameData &game, char input);
+void updateGameState(GameData &game);
+bool checkCollision(const GameData &game);
+bool checkWinCondition(const GameData &game);
 
 #endif

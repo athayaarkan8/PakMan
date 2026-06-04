@@ -1,7 +1,7 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-const int SIZE = 5;
+#include "../common.h"
 
 class Graph {
 public:
