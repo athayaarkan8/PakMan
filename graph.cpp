@@ -1,4 +1,7 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
+
 using namespace std;
 
 void renderMaze(int maze[5][5]) {
@@ -123,4 +126,46 @@ void printConnections(
             }
         }
     }
+}
+
+void generateMaze(int maze[5][5]) {
+
+    srand(time(0));
+
+    for(int i = 0; i < 5; i++) {
+
+        for(int j = 0; j < 5; j++) {
+
+            if(rand() % 4 == 0)
+                maze[i][j] = 1;
+            else
+                maze[i][j] = 0;
+        }
+    }
+
+    maze[0][0] = 0;
+    maze[4][4] = 0;
+}
+
+void countNodes(
+    int maze[5][5]
+) {
+
+    int totalNode = 0;
+
+    for(int i = 0; i < 5; i++) {
+
+        for(int j = 0; j < 5; j++) {
+
+            if(maze[i][j] == 0) {
+
+                totalNode++;
+            }
+        }
+    }
+
+    cout << "\n=== GRAPH INFO ===\n";
+    cout << "Total Node : "
+         << totalNode
+         << endl;
 }

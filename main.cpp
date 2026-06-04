@@ -7,20 +7,17 @@ using namespace std;
 
 int main() {
 
-    int maze[SIZE][SIZE] = {
-
-        {0,0,0,1,0},
-        {1,0,0,1,0},
-        {0,0,0,0,0},
-        {0,1,1,0,1},
-        {0,0,0,0,0}
-    };
+    int maze[SIZE][SIZE];
+    
+    generateMaze(maze);
 
     renderMaze(maze);
 
     printGraphNodes(maze);
 
     printConnections(maze);
+
+    countNodes(maze);
 
     cout << "\n=== MOVEMENT TEST ===\n";
 
