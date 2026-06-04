@@ -1,5 +1,7 @@
 #include <iostream>
 #include "../game.h"
+#include "../maze/mazeData.h"
+
 
 using namespace std;
 
@@ -17,15 +19,65 @@ GameData::GameData()
     initializeMaze(maze, difficulty);
 }
 
-void initializeGame(GameData &game, int difficulty)
+void loadLevel(
+    GameData& game,
+    int difficulty
+)
+{
+    const MazeLevel* level;
+
+    if(difficulty == 1)
+    {
+        level = &EASY_LEVELS[rand() % 3];
+    }
+    else if(difficulty == 2)
+    {
+        level = &MEDIUM_LEVELS[rand() % 3];
+    }
+    else
+    {
+        level = &HARD_LEVELS[rand() % 3];
+    }
+
+    for(int i = 0; i < SIZE; i++)
+    {
+        for(int j = 0; j < SIZE; j++)
+        {
+            game.maze[i][j] =
+                level->maze[i][j];
+        }
+    }
+
+    game.player =
+        Player(
+            level->playerX,
+            level->playerY
+        );
+
+    game.ghost =
+        Ghost(
+            level->ghostX,
+            level->ghostY
+        );
+
+    game.packageX = level->packageX;
+    game.packageY = level->packageY;
+
+    game.deliveryX = level->deliveryX;
+    game.deliveryY = level->deliveryY;
+}
+
+void initializeGame(
+    GameData& game,
+    int difficulty
+)
 {
     game = GameData();
 
-    game.difficulty = difficulty;
-
-    initializeMaze(
-        game.maze,
-        difficulty);
+    loadLevel(
+        game,
+        difficulty
+    );
 
     game.state = PLAYING;
     game.gameRunning = true;

@@ -35,6 +35,10 @@ struct GameData
 };
 
 void initializeGame(GameData &game, int difficulty);
+void loadLevel(
+    GameData& game,
+    int difficulty
+);
 void renderGame(const GameData &game);
 void handlePlayerInput(GameData &game, char input);
 void updateGameState(GameData &game);

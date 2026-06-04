@@ -37,12 +37,11 @@ void generateRandomWalls(int maze[SIZE][SIZE], int wallCount)
 
 void initializeMaze(
     int maze[SIZE][SIZE],
-    int difficulty
-)
+    int difficulty)
 {
     static bool seeded = false;
 
-    if(!seeded)
+    if (!seeded)
     {
         srand(time(NULL));
         seeded = true;
@@ -51,23 +50,27 @@ void initializeMaze(
     int selected = rand() % 3;
 
     const int (*source)[SIZE];
+    const MazeLevel *selectedLevel;
 
-    if(difficulty == 1)
+    if (difficulty == 1)
     {
-        source = EASY_MAZES[selected];
+        selectedLevel =
+            &EASY_LEVELS[rand() % 3];
     }
-    else if(difficulty == 2)
+    else if (difficulty == 2)
     {
-        source = MEDIUM_MAZES[selected];
+        selectedLevel =
+            &MEDIUM_LEVELS[rand() % 3];
     }
     else
     {
-        source = HARD_MAZES[selected];
+        selectedLevel =
+            &HARD_LEVELS[rand() % 3];
     }
 
-    for(int i = 0; i < SIZE; i++)
+    for (int i = 0; i < SIZE; i++)
     {
-        for(int j = 0; j < SIZE; j++)
+        for (int j = 0; j < SIZE; j++)
         {
             maze[i][j] = source[i][j];
         }

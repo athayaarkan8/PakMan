@@ -3,8 +3,25 @@
 
 #include "../common.h"
 
-extern const int EASY_MAZES[3][SIZE][SIZE];
-extern const int MEDIUM_MAZES[3][SIZE][SIZE];
-extern const int HARD_MAZES[3][SIZE][SIZE];
+struct MazeLevel
+{
+    int maze[SIZE][SIZE];
+
+    int playerX;
+    int playerY;
+
+    int ghostX;
+    int ghostY;
+
+    int packageX;
+    int packageY;
+
+    int deliveryX;
+    int deliveryY;
+};
+
+extern const MazeLevel EASY_LEVELS[3];
+extern const MazeLevel MEDIUM_LEVELS[3];
+extern const MazeLevel HARD_LEVELS[3];
 
 #endif
