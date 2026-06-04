@@ -1,5 +1,6 @@
 #include <cctype>
 #include <iostream>
+#include <conio.h>
 #include <limits>
 #include "game.h"
 
@@ -41,19 +42,24 @@ void playGame(int difficulty)
         renderGame(game);
 
         cout << "Input (W/A/S/D, Z rewind, Q pause): ";
-        char input;
-        cin >> input;
 
-        if (cin.fail())
-        {
-            if (cin.eof())
-            {
-                game.gameRunning = false;
-                break;
-            }
-            clearInput();
-            continue;
-        }
+        char input = _getch();
+        input = static_cast<char>(
+            tolower(
+                static_cast<unsigned char>(input)));
+
+        // cout << input << endl; // optional biar keliatan tombol yang dipencet
+
+        // if (cin.fail())
+        // {
+        //     if (cin.eof())
+        //     {
+        //         game.gameRunning = false;
+        //         break;
+        //     }
+        //     clearInput();
+        //     continue;
+        // }
 
         input = static_cast<char>(tolower(static_cast<unsigned char>(input)));
 

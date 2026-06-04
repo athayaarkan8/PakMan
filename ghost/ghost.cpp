@@ -101,6 +101,6 @@ void Ghost::setDifficulty(int level)
     }
     else
     {
-        detectionRadius = 7;
+        detectionRadius = 6;
     }
 }

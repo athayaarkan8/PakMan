@@ -100,7 +100,7 @@ void updateGameState(GameData &game)
         return;
     }
 
-    game.ghost.setDifficulty(2);
+    game.ghost.setDifficulty(game.difficulty);
     game.ghost.update(game.maze, game.player.getX(), game.player.getY());
 
     if (checkCollision(game))
