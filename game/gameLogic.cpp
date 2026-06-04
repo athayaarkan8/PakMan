@@ -2,7 +2,6 @@
 #include "../game.h"
 #include "../maze/mazeData.h"
 
-
 using namespace std;
 
 GameData::GameData()
@@ -20,17 +19,16 @@ GameData::GameData()
 }
 
 void loadLevel(
-    GameData& game,
-    int difficulty
-)
+    GameData &game,
+    int difficulty)
 {
-    const MazeLevel* level;
+    const MazeLevel *level;
 
-    if(difficulty == 1)
+    if (difficulty == 1)
     {
         level = &EASY_LEVELS[rand() % 3];
     }
-    else if(difficulty == 2)
+    else if (difficulty == 2)
     {
         level = &MEDIUM_LEVELS[rand() % 3];
     }
@@ -39,9 +37,9 @@ void loadLevel(
         level = &HARD_LEVELS[rand() % 3];
     }
 
-    for(int i = 0; i < SIZE; i++)
+    for (int i = 0; i < SIZE; i++)
     {
-        for(int j = 0; j < SIZE; j++)
+        for (int j = 0; j < SIZE; j++)
         {
             game.maze[i][j] =
                 level->maze[i][j];
@@ -51,14 +49,12 @@ void loadLevel(
     game.player =
         Player(
             level->playerX,
-            level->playerY
-        );
+            level->playerY);
 
     game.ghost =
         Ghost(
             level->ghostX,
-            level->ghostY
-        );
+            level->ghostY);
 
     game.packageX = level->packageX;
     game.packageY = level->packageY;
@@ -68,16 +64,14 @@ void loadLevel(
 }
 
 void initializeGame(
-    GameData& game,
-    int difficulty
-)
+    GameData &game,
+    int difficulty)
 {
     game = GameData();
 
     loadLevel(
         game,
-        difficulty
-    );
+        difficulty);
 
     game.state = PLAYING;
     game.gameRunning = true;
@@ -152,8 +146,15 @@ void updateGameState(GameData &game)
         return;
     }
 
-    game.ghost.setDifficulty(game.difficulty);
-    game.ghost.update(game.maze, game.player.getX(), game.player.getY());
+    if (!game.player.hasJustRewinded())
+    {
+        game.ghost.setDifficulty(game.difficulty);
+
+        game.ghost.update(
+            game.maze,
+            game.player.getX(),
+            game.player.getY());
+    }
 
     if (checkCollision(game))
     {
@@ -164,5 +165,4 @@ void updateGameState(GameData &game)
         game.state = WIN;
     }
     game.player.resetRewindFlag();
-
 }
