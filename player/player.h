@@ -11,27 +11,30 @@ private:
     int y;
 
     int rewindEnergy;
+    int stepCounter;
+    bool justRewinded;
 
     Stack history;
 
 public:
     Player(
         int startX,
-        int startY
-    );
+        int startY);
 
     void move(
         char input,
-        int maze[SIZE][SIZE]
-    );
+        int maze[SIZE][SIZE]);
 
     void rewind();
+    bool hasJustRewinded() const;
+    void resetRewindFlag();
 
     int getX() const;
 
     int getY() const;
 
     int getEnergy() const;
+    int getStepCounter() const;
 };
 
 #endif

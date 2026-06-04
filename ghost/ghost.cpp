@@ -12,10 +12,12 @@ Ghost::Ghost(int startX, int startY)
 int Ghost::distanceToPlayer(int playerX, int playerY)
 {
     int dx = x - playerX;
-    if(dx < 0) dx = -dx;
+    if (dx < 0)
+        dx = -dx;
 
     int dy = y - playerY;
-    if(dy < 0) dy = -dy;
+    if (dy < 0)
+        dy = -dy;
 
     return dx + dy;
 }
@@ -31,8 +33,8 @@ void Ghost::chase()
 void Ghost::update(
     int maze[SIZE][SIZE],
     int playerX,
-    int playerY
-) {
+    int playerY)
+{
     int dist = distanceToPlayer(playerX, playerY);
 
     int moveX[4] = {-1, 1, 0, 0};
@@ -41,31 +43,19 @@ void Ghost::update(
     int bestX = x;
     int bestY = y;
 
-    if (dist <= detectionRadius && bfs(maze, x, y, playerX, playerY))
+    if (dist <= detectionRadius &&
+        bfs(maze, x, y, playerX, playerY))
     {
-        int bestDist = dist;
+        BFSPosition next =
+            getNextMove(
+                maze,
+                x,
+                y,
+                playerX,
+                playerY);
 
-        for (int i = 0; i < 4; i++)
-        {
-            int nx = x + moveX[i];
-            int ny = y + moveY[i];
-
-            if (nx >= 0 && ny >= 0 && nx < SIZE && ny < SIZE && maze[nx][ny] == 0)
-            {
-                int nd = (nx - playerX);
-                if (nd < 0) nd = -nd;
-                int md = (ny - playerY);
-                if (md < 0) md = -md;
-                int candidateDist = nd + md;
-
-                if (candidateDist < bestDist)
-                {
-                    bestDist = candidateDist;
-                    bestX = nx;
-                    bestY = ny;
-                }
-            }
-        }
+        bestX = next.x;
+        bestY = next.y;
     }
     else
     {
@@ -91,16 +81,16 @@ void Ghost::update(
 
 void Ghost::setDifficulty(int level)
 {
-    if(level == 1)
+    if (level == 1)
     {
         detectionRadius = 3;
     }
-    else if(level == 2)
+    else if (level == 2)
     {
         detectionRadius = 5;
     }
     else
     {
-        detectionRadius = 7;
+        detectionRadius = 6;
     }
 }

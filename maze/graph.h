@@ -1,12 +1,37 @@
 #ifndef GRAPH_H
 #define GRAPH_H
-
 #include "../common.h"
 
-class Graph {
-public:
-    void generateMaze(int maze[SIZE][SIZE]);
-    void renderMaze(int maze[SIZE][SIZE]);
-};
+void initializeMaze(int maze[SIZE][SIZE], int difficulty);
+
+// bool isValidMove(
+//     int maze[SIZE][SIZE],
+//     int x,
+//     int y
+// );
+
+// bool checkWallCollision(
+//     int maze[SIZE][SIZE],
+//     int x,
+//     int y
+// );
+
+void renderMaze(
+    const int maze[SIZE][SIZE],
+    int difficulty,
+    int playerX,
+    int playerY,
+    int ghostX,
+    int ghostY,
+    int packageX,
+    int packageY,
+    int deliveryX,
+    int deliveryY,
+    bool hasPackage
+);
+
+void printGraphNodes(int maze[SIZE][SIZE]);
+
+void printConnections(int maze[SIZE][SIZE]);
 
 #endif
