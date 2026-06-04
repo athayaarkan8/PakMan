@@ -1,0 +1,10 @@
+█ = Tembok
+. = Jalan
+C = PakMan
+> = Antek-Antek
+★ = Paket
+! = Titik Delivery
+↺ = Kembali Ke Masa lalu
+Border Atas  = ╔══════════════════════╗
+border Sisi  = ║
+Border Bawah = ╚══════════════════════╝
