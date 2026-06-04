@@ -72,17 +72,17 @@ void Player::rewind()
     rewindEnergy--;
 }
 
-int Player::getX()
+int Player::getX() const
 {
     return x;
 }
 
-int Player::getY()
+int Player::getY() const
 {
     return y;
 }
 
-int Player::getEnergy()
+int Player::getEnergy() const
 {
     return rewindEnergy;
 }

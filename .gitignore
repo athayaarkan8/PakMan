@@ -3,3 +3,6 @@
 /.vscode
 
 CMakeLists.txt
+
+/pakman
+*.o

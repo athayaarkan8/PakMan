@@ -1,9 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "stack.h"
-
-const int SIZE = 5;
+#include "../common.h"
+#include "../game/stack.h"
 
 class Player
 {
@@ -28,11 +27,11 @@ public:
 
     void rewind();
 
-    int getX();
+    int getX() const;
 
-    int getY();
+    int getY() const;
 
-    int getEnergy();
+    int getEnergy() const;
 };
 
 #endif
