@@ -54,17 +54,22 @@ void Player::move(char input, int maze[SIZE][SIZE])
 
 void Player::rewind()
 {
-    if(history.isEmpty())
-    {
-        return;
-    }
-
     if(rewindEnergy <= 0)
     {
         return;
     }
 
-    Position previous = history.pop();
+    Position previous = {x, y};
+
+    for(int i = 0; i < 5; i++)
+    {
+        if(history.isEmpty())
+        {
+            break;
+        }
+
+        previous = history.pop();
+    }
 
     x = previous.x;
     y = previous.y;
