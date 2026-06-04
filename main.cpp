@@ -2,9 +2,12 @@
 #include <limits>
 #include "ghost/ghost.h"
 #include "ghost/bfs.h"
-#include "ghost.cpp"
-#include "bfs.cpp"
+#include "ghost/ghost.cpp"
+#include "ghost/bfs.cpp"
 using namespace std;
+
+bool gameRunning = false;
+int lamaBermain = 0;
 
 
 int maze[SIZE][SIZE] = {
