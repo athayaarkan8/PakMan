@@ -93,13 +93,17 @@ void playGame(int difficulty)
         if (game.state == WIN)
         {
             renderGame(game);
-            cout << "\nKamu menang! Paket berhasil diantar.\n";
+            cout << "\n================================\n";
+            cout << "Kamu menang! Paket berhasil diantar.\n";
+            cout << "================================\n";
             game.gameRunning = false;
         }
         else if (game.state == GAME_OVER)
         {
             renderGame(game);
+            cout << "\n================================\n";
             cout << "\nGame Over! Kamu tertangkap ghost.\n";
+            cout << "================================\n";
             game.gameRunning = false;
         }
     }

@@ -109,7 +109,9 @@ void initializeGame(
 void renderGame(const GameData &game)
 {
     system("cls");
-    cout << "\nRewind Energy: " << game.player.getEnergy();
+    cout << "================================\n";
+    cout << "Tingkat Kesulitan: " << game.difficulty << "\n";
+    cout << "\nKesempatan Rewind: " << game.player.getEnergy();
     cout
         << " | Recharge: "
         << game.player.getStepCounter()
@@ -120,6 +122,7 @@ void renderGame(const GameData &game)
         << game.deliveredPackages
         << "/"
         << game.targetPackages << "\n\n";
+    cout << "================================\n";
 
     renderMaze(
         game.maze,
