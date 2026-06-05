@@ -83,14 +83,14 @@ void Ghost::setDifficulty(int level)
 {
     if (level == 1)
     {
-        detectionRadius = 3;
+        detectionRadius = 5;
     }
     else if (level == 2)
     {
-        detectionRadius = 5;
+        detectionRadius = 6;
     }
     else
     {
-        detectionRadius = 6;
+        detectionRadius = 7;
     }
 }
