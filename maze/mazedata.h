@@ -13,8 +13,7 @@ struct MazeLevel
     int ghostX;
     int ghostY;
 
-    int packageX;
-    int packageY;
+    int packageSpawn[5][2];
 
     int deliveryX;
     int deliveryY;

@@ -14,6 +14,7 @@ void clearInput()
 
 void caraBermain()
 {
+    system("cls");
     cout << "\n======================================\n";
     cout << " CARA BERMAIN\n";
     cout << "======================================\n\n";
@@ -23,11 +24,18 @@ void caraBermain()
     cout << "D : Gerak ke kanan\n";
     cout << "Z : Rewind posisi sebelumnya\n";
     cout << "Q : Pause / Resume\n\n";
+
+    cout << "Pulihkan energi rewind dengan berjalan 13 langkah.\n";
     cout << "Ambil paket ($), lalu antarkan ke titik (!).\n";
-    cout << "Hindari ghost (>).\n\n";
-    cout << "Tekan Enter untuk kembali ke Main Menu...";
+    cout << "Hindari ghost yang ingin menghentikanmu (>).\n\n";
+    cout << "Tekan Enter untuk Kembali";
     clearInput();
     cin.get();
+    system("cls");
+}
+
+void difficultySelect()
+{
 }
 
 void playGame(int difficulty)
@@ -41,25 +49,19 @@ void playGame(int difficulty)
     {
         renderGame(game);
 
-        cout << "Input (W/A/S/D, Z rewind, Q pause): ";
+        if (game.state == PAUSED)
+        {
+            cout << "\nInput : ";
+        }
+        else
+        {
+            cout << "\nInput (W/A/S/D, Z rewind, Q pause): ";
+        }
 
         char input = _getch();
         input = static_cast<char>(
             tolower(
                 static_cast<unsigned char>(input)));
-
-        // cout << input << endl; // optional biar keliatan tombol yang dipencet
-
-        // if (cin.fail())
-        // {
-        //     if (cin.eof())
-        //     {
-        //         game.gameRunning = false;
-        //         break;
-        //     }
-        //     clearInput();
-        //     continue;
-        // }
 
         input = static_cast<char>(tolower(static_cast<unsigned char>(input)));
 
@@ -70,30 +72,19 @@ void playGame(int difficulty)
             if (game.state == PAUSED)
             {
                 cout << "Game Dijeda.\n";
-                cout << "[Q] Lanjutkan.\n";
-                cout << "[C] Cara Bermain.\n";
-                cout << "[X] Keluar.\n";
             }
 
             continue;
         }
-
-        if (game.state == PAUSED)
+        if (input == 'c')
         {
-            if (input == 'c')
-            {
-                caraBermain();
-            }
-            else if (input == 'x')
-            {
-                game.gameRunning = false;
-            }
-            continue;
+            caraBermain();
         }
-
-        if (game.state == PAUSED)
+        else if (input == 'x')
         {
-            continue;
+            game.gameRunning = false;
+            game.state = MENU;
+            return;
         }
 
         handlePlayerInput(game, input);
@@ -122,12 +113,13 @@ int main()
 {
     while (true)
     {
+        system("cls");
         cout << "\n======================================\n";
         cout << "            PAKMAN GAMEBOY\n";
         cout << "======================================\n";
         cout << "[1] Mulai Game\n";
         cout << "[2] Cara Bermain\n";
-        cout << "[3] Exit\n";
+        cout << "[3] Exit\n\n";
         cout << "Masukan Aksi: ";
 
         int aksi;
@@ -147,20 +139,25 @@ int main()
         switch (aksi)
         {
         case 1:
+            system("cls");
             cout << "\n======================================\n";
             cout << " PILIH TINGKAT KESULITAN\n";
-            cout << "======================================\n\n";
-            cout << "Pilih tingkat kesulitan:\n";
+            cout << "======================================\n";
             cout << "[1] Mudah\n";
             cout << "[2] Sedang\n";
             cout << "[3] Sulit\n";
+            cout << "[0] Kembali ke Menu\n\n";
             cout << "Masukan tingkat kesulitan: ";
             int level;
             cin >> level;
-            if (cin.fail() || level < 1 || level > 3)
+            if (cin.fail() || (level != 0 && (level < 1 || level > 3)))
             {
                 clearInput();
                 cout << "Tingkat kesulitan tidak valid!\n";
+                continue;
+            }
+            if (level == 0)
+            {
                 continue;
             }
 

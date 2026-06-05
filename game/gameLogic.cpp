@@ -15,7 +15,7 @@ GameData::GameData()
       gameRunning(false),
       state(MENU)
 {
-    initializeMaze(maze, difficulty);
+    // initializeMaze(maze, difficulty);
 }
 
 void loadLevel(
@@ -45,6 +45,21 @@ void loadLevel(
                 level->maze[i][j];
         }
     }
+    for (int i = 0; i < 5; i++)
+    {
+        game.packageSpawn[i][0] =
+            level->packageSpawn[i][0];
+
+        game.packageSpawn[i][1] =
+            level->packageSpawn[i][1];
+    }
+    game.currentPackageIndex = 0;
+
+    game.packageX =
+        game.packageSpawn[0][0];
+
+    game.packageY =
+        game.packageSpawn[0][1];
 
     game.player =
         Player(
@@ -56,8 +71,8 @@ void loadLevel(
             level->ghostX,
             level->ghostY);
 
-    game.packageX = level->packageX;
-    game.packageY = level->packageY;
+    // game.packageX = level->packageX;
+    // game.packageY = level->packageY;
 
     game.deliveryX = level->deliveryX;
     game.deliveryY = level->deliveryY;
@@ -72,7 +87,21 @@ void initializeGame(
     loadLevel(
         game,
         difficulty);
+    if (difficulty == 1)
+    {
+        game.targetPackages = 1;
+    }
+    else if (difficulty == 2)
+    {
+        game.targetPackages = 3;
+    }
+    else
+    {
+        game.targetPackages = 5;
+    }
+    game.currentPackageIndex = 0;
 
+    game.deliveredPackages = 0;
     game.state = PLAYING;
     game.gameRunning = true;
 }
@@ -84,8 +113,13 @@ void renderGame(const GameData &game)
     cout
         << " | Recharge: "
         << game.player.getStepCounter()
-        << "/10";
-    cout << " | Paket: " << (game.hasPackage ? "Sudah diambil" : "Belum") << "\n\n";
+        << "/13";
+    cout << " | Paket: " << (game.hasPackage ? "Sudah diambil" : "Belum diambil") ;
+    cout
+        << "\nPaket Terkirim: "
+        << game.deliveredPackages
+        << "/"
+        << game.targetPackages << "\n\n";
 
     renderMaze(
         game.maze,
@@ -103,6 +137,10 @@ void renderGame(const GameData &game)
     if (game.state == PAUSED)
     {
         cout << "\n[PAUSED]\n";
+        cout << "[Q] Lanjutkan.\n";
+        cout << "[C] Cara Bermain.\n";
+        cout << "[X] Keluar.\n";
+
     }
 }
 
@@ -133,9 +171,8 @@ bool checkCollision(const GameData &game)
 
 bool checkWinCondition(const GameData &game)
 {
-    return game.hasPackage &&
-           game.player.getX() == game.deliveryX &&
-           game.player.getY() == game.deliveryY;
+    return game.deliveredPackages >=
+           game.targetPackages;
 }
 
 void updateGameState(GameData &game)
@@ -154,6 +191,27 @@ void updateGameState(GameData &game)
             game.maze,
             game.player.getX(),
             game.player.getY());
+    }
+
+    if (game.hasPackage &&
+        game.player.getX() == game.deliveryX &&
+        game.player.getY() == game.deliveryY)
+    {
+        game.deliveredPackages++;
+
+        game.hasPackage = false;
+
+        if (game.deliveredPackages <
+            game.targetPackages)
+        {
+            game.currentPackageIndex++;
+
+            game.packageX =
+                game.packageSpawn[game.currentPackageIndex][0];
+
+            game.packageY =
+                game.packageSpawn[game.currentPackageIndex][1];
+        }
     }
 
     if (checkCollision(game))
