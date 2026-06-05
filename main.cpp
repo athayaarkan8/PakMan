@@ -22,11 +22,14 @@ void caraBermain()
     cout << "S : Gerak ke bawah\n";
     cout << "A : Gerak ke kiri\n";
     cout << "D : Gerak ke kanan\n";
-    cout << "Z : Rewind posisi sebelumnya\n";
+    cout << "Z : Rewind \n";
     cout << "Q : Pause / Resume\n\n";
 
     cout << "Pulihkan energi rewind dengan berjalan 13 langkah.\n";
-    cout << "Ambil paket ($), lalu antarkan ke titik (!).\n";
+    cout << "Setiap kamu gerak, posisi sebelumnya akan disimpan. Kamu bisa rewind 3 langkah ke belakang.\n\n";
+
+    cout << "Setiap player bergerkan, ghost juga akan bergerak. Ghost akan mengejar player jika berada dalam radius deteksinya.\n";
+    cout << "Ambil paket ($), lalu antarkan ke titik delivery(!).\n";
     cout << "Hindari ghost yang ingin menghentikanmu (>).\n\n";
     cout << "Tekan Enter untuk Kembali";
     clearInput();

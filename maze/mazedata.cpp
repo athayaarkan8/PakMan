@@ -1,5 +1,7 @@
 #include "mazeData.h"
 
+// urutannya: player, ghost, paket muncul (5), titik delivery
+
 const MazeLevel EASY_LEVELS[3] =
     {
         {
@@ -136,7 +138,6 @@ const MazeLevel MEDIUM_LEVELS[3] =
             8 // delivery
         },
 
-        // ================= HARD 1 =================
         {
             {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
              {1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
@@ -164,7 +165,6 @@ const MazeLevel MEDIUM_LEVELS[3] =
 
 const MazeLevel HARD_LEVELS[3] =
     {
-        // ================= HARD 1 =================
         {
             {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
              {1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
@@ -190,7 +190,6 @@ const MazeLevel HARD_LEVELS[3] =
 
             1,
             8},
-        // ================= HARD 2 =================
         {
             {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
              {1, 0, 0, 1, 0, 0, 0, 1, 0, 1},
@@ -217,7 +216,6 @@ const MazeLevel HARD_LEVELS[3] =
             1,
             8},
 
-        // ================= HARD 3 =================
         {
             {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
              {1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
