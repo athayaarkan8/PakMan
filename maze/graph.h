@@ -21,14 +21,17 @@ void renderMaze(
     int difficulty,
     int playerX,
     int playerY,
-    int ghostX,
-    int ghostY,
+    int ghost1X,
+    int ghost1Y,
+    int ghost2X,
+    int ghost2Y,
+    int ghost3X,
+    int ghost3Y,
     int packageX,
     int packageY,
     int deliveryX,
     int deliveryY,
-    bool hasPackage
-);
+    bool hasPackage);
 
 void printGraphNodes(int maze[SIZE][SIZE]);
 

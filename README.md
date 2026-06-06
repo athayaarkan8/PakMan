@@ -11,7 +11,7 @@ cmake --build build
 ## Jalankan
 
 ```bash
-cmake .build/pakman
+.build/pakman
 ```
 
 ## Kontrol Game

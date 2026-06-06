@@ -55,7 +55,7 @@ void Player::move(char input, int maze[SIZE][SIZE])
         y = newY;
         stepCounter++;
 
-        if (stepCounter >= 13)
+        if (stepCounter >= 21)
         {
             stepCounter = 0;
 
