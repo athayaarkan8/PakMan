@@ -5,7 +5,7 @@ Player::Player(int startX, int startY)
     x = startX;
     y = startY;
 
-    rewindEnergy = 3;
+    rewindEnergy = 1;
     stepCounter = 0;
     justRewinded = false;
 }
@@ -55,7 +55,7 @@ void Player::move(char input, int maze[SIZE][SIZE])
         y = newY;
         stepCounter++;
 
-        if (stepCounter >= 10)
+        if (stepCounter >= 21)
         {
             stepCounter = 0;
 
@@ -83,7 +83,7 @@ void Player::rewind()
 
     Position target;
 
-    int steps = 4;
+    int steps = 3;
 
     while (steps > 0 && !history.isEmpty())
     {

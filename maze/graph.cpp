@@ -82,8 +82,12 @@ void renderMaze(
     int difficulty,
     int playerX,
     int playerY,
-    int ghostX,
-    int ghostY,
+    int ghost1X,
+    int ghost1Y,
+    int ghost2X,
+    int ghost2Y,
+    int ghost3X,
+    int ghost3Y,
     int packageX,
     int packageY,
     int deliveryX,
@@ -109,10 +113,23 @@ void renderMaze(
                 cell = '!';
             }
 
-            if (i == ghostX &&
-                j == ghostY)
+            if (i == ghost1X &&
+                j == ghost1Y)
             {
                 cell = '>';
+            }
+
+            if (difficulty >= 2 &&
+                i == ghost2X &&
+                j == ghost2Y)
+            {
+                cell = '<';
+            }
+            if (difficulty == 3 &&
+                i == ghost3X &&
+                j == ghost3Y)
+            {
+                cell = '^';
             }
 
             if (i == playerX &&

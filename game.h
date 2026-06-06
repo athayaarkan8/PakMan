@@ -22,12 +22,19 @@ struct GameData
     int maze[SIZE][SIZE];
     int difficulty;
     Player player;
-    Ghost ghost;
+    Ghost ghost1;
+    Ghost ghost2;
+    Ghost ghost3;
     int packageX;
     int packageY;
     int deliveryX;
     int deliveryY;
     bool hasPackage;
+    int deliveredPackages;
+    int deliveryPatrolIndex;
+    int targetPackages;
+    int currentPackageIndex;
+    int packageSpawn[5][2];
     bool gameRunning;
     GameState state;
 
@@ -36,9 +43,8 @@ struct GameData
 
 void initializeGame(GameData &game, int difficulty);
 void loadLevel(
-    GameData& game,
-    int difficulty
-);
+    GameData &game,
+    int difficulty);
 void renderGame(const GameData &game);
 void handlePlayerInput(GameData &game, char input);
 void updateGameState(GameData &game);

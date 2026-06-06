@@ -1,15 +1,17 @@
 # PakMan
 
+!Lakukan Instruksi Berikut jika Menggunakan CMake
+
 ## Compile
 
 ```bash
-make
+cmake --build build
 ```
 
 ## Jalankan
 
 ```bash
-make run
+.build/pakman
 ```
 
 ## Kontrol Game
@@ -21,3 +23,5 @@ make run
 ## Tujuan
 
 Ambil paket (`$`) lalu antarkan ke titik delivery (`!`) sambil menghindari ghost (`>`).
+
+Have Fun!
