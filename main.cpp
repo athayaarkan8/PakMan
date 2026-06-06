@@ -15,9 +15,9 @@ void clearInput()
 void caraBermain()
 {
     system("cls");
-    cout << "\n======================================\n";
+    cout << "\n===============================================\n";
     cout << " CARA BERMAIN\n";
-    cout << "======================================\n\n";
+    cout << "===============================================\n\n";
     cout << "W : Gerak ke atas\n";
     cout << "S : Gerak ke bawah\n";
     cout << "A : Gerak ke kiri\n";
@@ -32,7 +32,8 @@ void caraBermain()
     cout << "Setiap player bergerak, Ghost juga akan bergerak.\n";
     cout << "Ghost akan mengejar player jika berada dalam radius deteksinya.\n";
     cout << "Ambil paket ($), lalu antarkan ke titik delivery(!).\n";
-    cout << "Hindari ghost yang ingin menghentikanmu (>).\n\n";
+    cout << "Hindari ghost yang ingin menghentikanmu (>).\n";
+    cout << "===============================================\n";
     cout << "Tekan Enter untuk Kembali";
     clearInput();
     cin.get();
@@ -47,7 +48,7 @@ void difficultySelect(int difficulty)
         cout << "\n======================================\n";
         cout << " KESULITAN: MUDAH\n";
         cout << "======================================\n";
-        cout << "A. Hanya 1 Ghost yang Mengejar.\n";
+        cout << "A. 1 Ghost akan Mengejar Player.\n";
         cout << "B. Tembok Sedikit.\n";
         cout << "C. Paket Yang Harus Diantar: 1.\n";
         cout << "======================================\n";
@@ -57,9 +58,11 @@ void difficultySelect(int difficulty)
         cout << "\n======================================\n";
         cout << " KESULITAN: SEDANG\n";
         cout << "======================================\n";
-        cout << "A. 1 Ghost Yang Mengejar, 1 Berpatroli di Titik Delivery.\n";
-        cout << "B. Tembok Lebih Banyak.\n";
-        cout << "C. Paket Yang Harus Diantar: 3.\n";
+        cout << "A. Total 2 Ghost.\n";
+        cout << "B. 1 Ghost akan Mengejar Player.\n ";
+        cout << "C. 1 Ghost akan Menjaga Titik Delivery.\n ";
+        cout << "D. Tembok Lebih Banyak.\n";
+        cout << "E. Paket Yang Harus Diantar: 3.\n";
         cout << "======================================\n";
     }
     else if (difficulty == 3)
@@ -67,11 +70,12 @@ void difficultySelect(int difficulty)
         cout << "\n======================================\n";
         cout << " KESULITAN: SULIT\n";
         cout << "======================================\n";
-        cout << "A. 1 Ghost Yang Mengejar.\n";
-        cout << "B. 1 Ghost Yang Berpatroli Namun Akan Mengejar.\n";
-        cout << "   Player Jika Terlalu Dekat dengan Titik Delivery.\n";
-        cout << "C. Tembok Semakin banyak.\n";
-        cout << "D. Paket Yang Harus Diantar: 5.\n";
+        cout << "A. Total 3 Ghost.\n";
+        cout << "B. 1 Ghost akan Mengejar Player.\n";
+        cout << "C. 1 Ghost akan Menjaga Titik Delivery.\n";
+        cout << "D. 1 Ghost akan Menjaga Paket.\n";
+        cout << "E. Tembok Semakin banyak.\n";
+        cout << "F. Paket Yang Harus Diantar: 5.\n";
         cout << "======================================\n";
     }
 }
@@ -192,7 +196,7 @@ int main()
                 cout << "[2] Sedang\n";
                 cout << "[3] Sulit\n";
                 cout << "[0] Kembali ke Menu\n";
-                cout << "=======================================\n";
+                cout << "======================================\n";
                 cout << "Masukan tingkat kesulitan: ";
                 int level;
                 cin >> level;
@@ -204,7 +208,7 @@ int main()
                 }
                 if (level == 0)
                 {
-                    continue;
+                    break;
                 }
                 difficultySelect(level);
                 int aksi;
